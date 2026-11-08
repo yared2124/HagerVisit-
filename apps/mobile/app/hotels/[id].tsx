@@ -13,13 +13,23 @@ import { useRouter } from 'expo-router';
 import { Ionicons, Feather } from '@expo/vector-icons';
 import { Button } from '../../src/components/ui/Button';
 import { RatingBadge } from '../../src/components/ui/RatingBadge';
-import { MOCK_HOTEL } from '../../src/constants/mockData';
+import { useApp } from '../../src/store/AppContext';
 import { colors, radii, spacing, typography, shadows } from '../../src/theme';
 
 export default function HotelDetailScreen() {
   const router = useRouter();
+  const { hotel, createBooking } = useApp();
   const [isFavorite, setIsFavorite] = useState(false);
-  const hotel = MOCK_HOTEL;
+
+  const handleBookNow = () => {
+    createBooking(
+      hotel.title,
+      'Nov 14 - Nov 18, 2026',
+      '2 Guests',
+      `$${hotel.pricePerNight * 4}`
+    );
+    router.push('/bookings/confirmed' as any);
+  };
 
   return (
     <View style={styles.container}>
@@ -90,7 +100,7 @@ export default function HotelDetailScreen() {
           {/* Book Now Button */}
           <Button
             title="Book Now"
-            onPress={() => router.push('/bookings/confirmed' as any)}
+            onPress={handleBookNow}
             variant="primary"
             size="lg"
             style={styles.bookBtn}
@@ -210,4 +220,3 @@ const styles = StyleSheet.create({
     lineHeight: 22,
   },
 });
-

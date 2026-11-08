@@ -10,11 +10,12 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons, Feather } from '@expo/vector-icons';
-import { MOCK_NOTIFICATIONS } from '../../src/constants/mockData';
+import { useApp } from '../../src/store/AppContext';
 import { colors, radii, spacing, typography } from '../../src/theme';
 
 export default function NotificationsScreen() {
   const router = useRouter();
+  const { notifications, markNotificationAsRead } = useApp();
 
   const renderIcon = (type: string, color: string) => {
     switch (type) {
@@ -30,6 +31,15 @@ export default function NotificationsScreen() {
         return <Ionicons name="star-outline" size={18} color="#FFFFFF" />;
       default:
         return <Ionicons name="notifications-outline" size={18} color="#FFFFFF" />;
+    }
+  };
+
+  const handleNotificationPress = (item: any) => {
+    markNotificationAsRead(item.id);
+    if (item.type === 'booking') {
+      router.push('/bookings/confirmed' as any);
+    } else if (item.type === 'tour') {
+      router.push('/tours' as any);
     }
   };
 
@@ -51,39 +61,43 @@ export default function NotificationsScreen() {
         </View>
 
         {/* Notifications Feed */}
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={styles.scrollList}
-        >
-          {MOCK_NOTIFICATIONS.map((item) => (
-            <TouchableOpacity
-              key={item.id}
-              activeOpacity={0.7}
-              onPress={() => {
-                if (item.type === 'booking') {
-                  router.push('/bookings/confirmed' as any);
-                } else if (item.type === 'tour') {
-                  router.push('/tours' as any);
-                }
-              }}
-              style={styles.itemRow}
-            >
-              <View
-                style={[
-                  styles.iconContainer,
-                  { backgroundColor: item.iconColor },
-                ]}
+        {notifications.length > 0 ? (
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.scrollList}
+          >
+            {notifications.map((item) => (
+              <TouchableOpacity
+                key={item.id}
+                activeOpacity={0.7}
+                onPress={() => handleNotificationPress(item)}
+                style={styles.itemRow}
               >
-                {renderIcon(item.type, item.iconColor)}
-              </View>
+                <View
+                  style={[
+                    styles.iconContainer,
+                    { backgroundColor: item.iconColor },
+                  ]}
+                >
+                  {renderIcon(item.type, item.iconColor)}
+                </View>
 
-              <View style={styles.textContainer}>
-                <Text style={styles.itemTitle}>{item.title}</Text>
-                <Text style={styles.itemTime}>{item.timeAgo}</Text>
-              </View>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+                <View style={styles.textContainer}>
+                  <Text style={styles.itemTitle}>{item.title}</Text>
+                  <Text style={styles.itemTime}>{item.timeAgo}</Text>
+                </View>
+
+                <Ionicons name="chevron-forward" size={16} color={colors.textMuted} />
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        ) : (
+          <View style={styles.emptyContainer}>
+            <Ionicons name="notifications-off-outline" size={48} color={colors.textMuted} />
+            <Text style={styles.emptyTitle}>All Caught Up</Text>
+            <Text style={styles.emptySubtitle}>You have no new notifications.</Text>
+          </View>
+        )}
       </View>
     </SafeAreaView>
   );
@@ -151,5 +165,21 @@ const styles = StyleSheet.create({
     fontSize: typography.sm,
     color: colors.textMuted,
   },
+  emptyContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: spacing.sm,
+    paddingHorizontal: spacing.xxl,
+  },
+  emptyTitle: {
+    fontSize: typography.lg,
+    fontWeight: typography.bold,
+    color: colors.textPrimary,
+  },
+  emptySubtitle: {
+    fontSize: typography.sm,
+    color: colors.textSecondary,
+    textAlign: 'center',
+  },
 });
-
