@@ -1,0 +1,16 @@
+{
+  "name": "hagervisit-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "HagerVisit - Ethiopian Travel & Tourism Ecosystem",
+  "scripts": {
+    "mobile": "npm --prefix apps/mobile start",
+    "mobile:ios": "npm --prefix apps/mobile run ios",
+    "mobile:android": "npm --prefix apps/mobile run android",
+    "mobile:web": "npm --prefix apps/mobile run web"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "expo": {
+    "name": "HagerVisit",
+    "slug": "hagervisit",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/design_reference.jpg",
+    "scheme": "hagervisit",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#144234"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.hagervisit.mobile"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#144234"
+      },
+      "package": "com.hagervisit.mobile"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single"
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

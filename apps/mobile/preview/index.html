@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HagerVisit Mobile App - 100% Design Showcase & Interactive Prototype</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --primary: #144234;
+      --primary-dark: #0d2c22;
+      --primary-light: #1c5543;
+      --primary-soft: #ebf3ef;
+      --accent: #e5a93c;
+      --accent-light: #fcf5e8;
+      --bg: #f8faf8;
+      --surface: #ffffff;
+      --text-main: #162520;
+      --text-sub: #667771;
+      --text-muted: #9aa8a2;
+      --border: #e6ede8;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-pill: 9999px;
+      --shadow-subtle: 0 2px 8px rgba(14, 45, 35, 0.06);
+      --shadow-card: 0 6px 18px rgba(14, 45, 35, 0.08);
+      --shadow-float: 0 12px 28px rgba(14, 45, 35, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background-color: #0d1a15;
+      color: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Navigation Header */
+    header {
+      background: rgba(14, 30, 24, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #144234 0%, #1e5e4b 100%);
+      border: 1px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.1rem;
+    }
+
+    .brand-name {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-name span {
+      color: var(--accent);
+    }
+
+    .nav-tabs {
+      display: flex;
+      background: rgba(0, 0, 0, 0.35);
+      padding: 4px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-tab-btn {
+      padding: 0.5rem 1.25rem;
+      border-radius: var(--radius-pill);
+      border: none;
+      background: transparent;
+      color: #94a3b8;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-tab-btn.active {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 2px 10px rgba(20, 66, 52, 0.5);
+    }
+
+    .nav-tab-btn:hover:not(.active) {
+      color: #fff;
+    }
+
+    /* Main Container */
+    main {
+      flex: 1;
+      padding: 2rem;
+      max-width: 1440px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* View: Grid View */
+    .view-container {
+      display: none;
+    }
+
+    .view-container.active {
+      display: block;
+    }
+
+    .section-intro {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .section-intro h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-intro p {
+      color: #94a3b8;
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* 15 Screens Grid */
+    .grid-15 {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    @media (max-width: 1200px) {
+      .grid-15 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .grid-15 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .grid-15 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .screen-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      cursor: pointer;
+    }
+
+    .screen-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .screen-preview-wrapper {
+      width: 100%;
+      aspect-ratio: 180 / 325;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #111;
+      position: relative;
+      border: 2px solid rgba(0, 0, 0, 0.4);
+    }
+
+    .screen-preview-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .screen-info {
+      width: 100%;
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .screen-number {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      background: rgba(229, 169, 60, 0.15);
+      padding: 2px 8px;
+      border-radius: 12px;
+    }
+
+    .screen-name {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    /* Interactive Simulator View */
+    .simulator-layout {
+      display: flex;
+      gap: 3rem;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    @media (max-width: 900px) {
+      .simulator-layout {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+    /* Phone Device Frame */
+    .device-frame {
+      width: 380px;
+      height: 780px;
+      background: #000;
+      border-radius: 50px;
+      padding: 12px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 0 4px #262c28, 0 0 0 6px #121513;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .device-screen {
+      width: 100%;
+      height: 100%;
+      background: var(--bg);
+      border-radius: 40px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Status Bar */
+    .status-bar {
+      height: 44px;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-main);
+      z-index: 50;
+      background: transparent;
+    }
+
+    .status-bar.dark-text {
+      color: #111;
+    }
+
+    .status-bar.light-text {
+      color: #fff;
+    }
+
+    .dynamic-island {
+      width: 100px;
+      height: 24px;
+      background: #000;
+      border-radius: 20px;
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 60;
+    }
+
+    /* Screen Views in Phone */
+    .phone-view {
+      flex: 1;
+      display: none;
+      flex-direction: column;
+      overflow-y: auto;
+      overflow-x: hidden;
+      background: #fff;
+      position: relative;
+    }
+
+    .phone-view.active {
+      display: flex;
+    }
+
+    /* Simulator Sidebar Controls */
+    .sim-controls {
+      flex: 1;
+      max-width: 500px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      padding: 1.5rem;
+    }
+
+    .sim-controls h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .screen-selector-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-height: 520px;
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+
+    .screen-item-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: #cbd5e1;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s;
+    }
+
+    .screen-item-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.15);
+      color: #fff;
+    }
+
+    .screen-item-btn.active {
+      background: rgba(20, 66, 52, 0.5);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .screen-idx {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      background: rgba(229, 169, 60, 0.15);
+      padding: 2px 6px;
+      border-radius: 6px;
+      min-width: 24px;
+      text-align: center;
+    }
+
+    .screen-label {
+      font-weight: 600;
+      font-size: 0.9rem;
+      flex: 1;
+    }
+
+    .screen-path {
+      font-size: 0.75rem;
+      color: #64748b;
+      font-family: monospace;
+    }
+
+    /* Design System Tokens View */
+    .tokens-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .token-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+
+    .token-card h3 {
+      font-size: 1.1rem;
+      color: #fff;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .color-swatch-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .swatch-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .swatch-color {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .swatch-name {
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: #fff;
+    }
+
+    .swatch-hex {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      font-family: monospace;
+    }
+
+    /* Common In-Phone UI Elements */
+    .phone-header {
+      padding: 12px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff;
+    }
+
+    .phone-bottom-nav {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: #fff;
+      border-top: 1px solid #edf2ee;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding-bottom: 8px;
+      z-index: 40;
+    }
+
+    .phone-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      color: #8fa099;
+      font-size: 10px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .phone-nav-item.active {
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .phone-btn-primary {
+      width: 100%;
+      height: 48px;
+      border-radius: var(--radius-pill);
+      background: var(--primary);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.2s;
+    }
+
+    .phone-btn-primary:hover {
+      background: var(--primary-light);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header>
+    <div class="brand">
+      <div class="brand-icon">
+        <i class="fa-solid fa-mountain"></i>
+      </div>
+      <div class="brand-name">Hager<span>Visit</span></div>
+    </div>
+
+    <div class="nav-tabs">
+      <button class="nav-tab-btn active" onclick="switchView('grid')">
+        <i class="fa-solid fa-table-cells"></i> 15 Screens Overview
+      </button>
+      <button class="nav-tab-btn" onclick="switchView('simulator')">
+        <i class="fa-solid fa-mobile-screen"></i> Interactive Simulator
+      </button>
+      <button class="nav-tab-btn" onclick="switchView('tokens')">
+        <i class="fa-solid fa-palette"></i> Design System
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- VIEW 1: 15 SCREENS GRID -->
+    <div id="view-grid" class="view-container active">
+      <div class="section-intro">
+        <h1>100% Mobile UI Design System</h1>
+        <p>All 15 pixel-perfect screens for HagerVisit travel & tourism platform, implemented with Expo Router & React Native.</p>
+      </div>
+
+      <div class="grid-15">
+        <!-- Row 1 -->
+        <div class="screen-card" onclick="openInSimulator('welcome')">
+          <div class="screen-preview-wrapper">
+            <img src="./screens/01_welcome.png" alt="01 Welcome Screen">
+          </div>
+          <div class="screen-info">
+            <span class="screen-name">01. Welcome / Splash</span>
+            <span class="screen-number">app/index.tsx</span>
+          </div>
+        </div>
+
+        <div class="screen-card" onclick="openInSimulator('onboarding')">
+          <div class="screen-preview-wrapper">
+            <img src="./screens/02_onboarding.png" alt="02 Onboarding Screen">
+          </div>
+          <div class="screen-info">
+            <span class="screen-name">02. Onboarding Flow</span>
+            <span class="screen-number">(onboarding)</span>
+          </div>
+        </div>
+
+        <div class="screen-card" onclick="openInSimulator('home')">
+          <div class="screen-preview-wrapper">
+            <img src="./screens/03_home.png" alt="03 Home Screen">
+          </div>
+          <div class="screen-info">
+            <span class="screen-name">03. Home Feed</span>
+            <span class="screen-number">(tabs)/index</span>
+          </div>
+        </div>
+
+        <div class="screen-card" onclick="openInSimulator('destination')">
+          <div class="screen-preview-wrapper">
+            <img src="./screens/04_destination_detail.png" alt="04 Destination Detail">
+          </div>
+          <div class="screen-info">
+            <span class="screen-name">04. Destination Detail</span>
+            <span class="screen-number">destinations/[id]</span>
+          </div>
+        </div>
+
+        <div class="screen-card" onclick="openInSimulator('explore')">
+          <div class="screen-preview-wrapper">
+            <img src="./screens/05_explore_map.png" alt="05 Explore Map">
+          </div>
+          <div class="screen-info">
+            <span class="screen-name">05. Explore Map</span>
+            <span class="screen-number">(tabs)/explore</span>
+          </div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="screen-card" onclick="openInSimulator('plan')">
+          <div class="screen-preview-wrapper">
+            <img src="./screens/06_plan_trip.png" alt="06 Plan Your Trip">
+          </div>
+          <div class="screen-info">
+            <span class="screen-name">06. Plan Your Trip</span>
+            <span class="screen-number">(tabs)/trips</span>
+          </div>
+        </div>
+
+        <div class="screen-card" onclick="openInSimulator('tours')">
+          <div class="screen-preview-wrapper">
+            <img src="./screens/07_tours.png" alt="07 Tours Listing">
+          </div>
+          <div class="screen-info">
+            <span class="screen-name">07. Tours & Experiences</span>
+            <span class="screen-number">tours/index</span>
+          </div>
+        </div>
+
+        <div class="screen-card" onclick="openInSimulator('hotel')">
+          <div class="screen-preview-wrapper">
+            <img src="./screens/08_hotel_detail.png" alt="08 Hotel Detail">
+          </div>
+          <div class="screen-info">
+            <span class="screen-name">08. Hotel & Lodging</span>
+            <span class="screen-number">hotels/[id]</span>
+          </div>
+        </div>
+
+        <div class="screen-card" onclick="openInSimulator('confirmed')">
+          <div class="screen-preview-wrapper">
+            <img src="./screens/09_booking_confirmed.png" alt="09 Booking Confirmed">
+          </div>
+          <div class="screen-info">
+            <span class="screen-name">09. Booking Confirmed</span>
+            <span class="screen-number">bookings/confirmed</span>
+          </div>
+        </div>
+
+        <div class="screen-card" onclick="openInSimulator('profile')">
+          <div class="screen-preview-wrapper">
+            <img src="./screens/10_profile.png" alt="10 Profile Screen">
+          </div>
+          <div class="screen-info">
+            <span class="screen-name">10. User Profile</span>
+            <span class="screen-number">(tabs)/profile</span>
+          </div>
+        </div>
+
+        <!-- Row 3 -->
+        <div class="screen-card" onclick="openInSimulator('filters')">
+          <div class="screen-preview-wrapper">
+            <img src="./screens/11_filters.png" alt="11 Filters Modal">
+          </div>
+          <div class="screen-info">
+            <span class="screen-name">11. Filters Modal</span>
+            <span class="screen-number">destinations/filters</span>
+          </div>
+        </div>
+
+        <div class="screen-card" onclick="openInSimulator('saved')">
+          <div class="screen-preview-wrapper">
+            <img src="./screens/12_favorites.png" alt="12 Favorites Screen">
+          </div>
+          <div class="screen-info">
+            <span class="screen-name">12. Favorites & Saved</span>
+            <span class="screen-number">(tabs)/saved</span>
+          </div>
+        </div>
+
+        <div class="screen-card" onclick="openInSimulator('offline')">
+          <div class="screen-preview-wrapper">
+            <img src="./screens/13_offline_guides.png" alt="13 Offline Guides">
+          </div>
+          <div class="screen-info">
+            <span class="screen-name">13. Offline Guides</span>
+            <span class="screen-number">offline-guides/index</span>
+          </div>
+        </div>
+
+        <div class="screen-card" onclick="openInSimulator('notifications')">
+          <div class="screen-preview-wrapper">
+            <img src="./screens/14_notifications.png" alt="14 Notifications">
+          </div>
+          <div class="screen-info">
+            <span class="screen-name">14. Notifications Feed</span>
+            <span class="screen-number">notifications/index</span>
+          </div>
+        </div>
+
+        <div class="screen-card" onclick="openInSimulator('settings')">
+          <div class="screen-preview-wrapper">
+            <img src="./screens/15_settings.png" alt="15 Settings">
+          </div>
+          <div class="screen-info">
+            <span class="screen-name">15. App Settings</span>
+            <span class="screen-number">settings/index</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 2: INTERACTIVE SIMULATOR -->
+    <div id="view-simulator" class="view-container">
+      <div class="simulator-layout">
+
+        <!-- Physical Phone Frame -->
+        <div class="device-frame">
+          <div class="device-screen">
+            <!-- Dynamic Island -->
+            <div class="dynamic-island"></div>
+
+            <!-- Top Status Bar -->
+            <div id="sim-status-bar" class="status-bar dark-text">
+              <span>9:41</span>
+              <div style="display: flex; gap: 6px; align-items: center;">
+                <i class="fa-solid fa-signal" style="font-size: 11px;"></i>
+                <i class="fa-solid fa-wifi" style="font-size: 11px;"></i>
+                <i class="fa-solid fa-battery-full" style="font-size: 13px;"></i>
+              </div>
+            </div>
+
+            <!-- Screen Image Inside Simulator -->
+            <div style="flex: 1; overflow: hidden; position: relative;">
+              <img id="sim-screen-img" src="./screens/03_home.png" style="width: 100%; height: 100%; object-fit: contain; background: #fff;" alt="Active Screen">
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar Screen Selector & Specs -->
+        <div class="sim-controls">
+          <h2><i class="fa-solid fa-layer-group" style="color: var(--accent);"></i> Select Screen to Inspect</h2>
+          <div class="screen-selector-list">
+            <div class="screen-item-btn" onclick="setSimScreen('welcome')">
+              <span class="screen-idx">01</span>
+              <span class="screen-label">Splash / Welcome Screen</span>
+              <span class="screen-path">app/index.tsx</span>
+            </div>
+            <div class="screen-item-btn" onclick="setSimScreen('onboarding')">
+              <span class="screen-idx">02</span>
+              <span class="screen-label">Onboarding Guide</span>
+              <span class="screen-path">app/(onboarding)/index.tsx</span>
+            </div>
+            <div class="screen-item-btn active" onclick="setSimScreen('home')">
+              <span class="screen-idx">03</span>
+              <span class="screen-label">Home Dashboard</span>
+              <span class="screen-path">app/(tabs)/index.tsx</span>
+            </div>
+            <div class="screen-item-btn" onclick="setSimScreen('destination')">
+              <span class="screen-idx">04</span>
+              <span class="screen-label">Destination Details (Lalibela)</span>
+              <span class="screen-path">app/destinations/[id].tsx</span>
+            </div>
+            <div class="screen-item-btn" onclick="setSimScreen('explore')">
+              <span class="screen-idx">05</span>
+              <span class="screen-label">Explore & Interactive Map</span>
+              <span class="screen-path">app/(tabs)/explore.tsx</span>
+            </div>
+            <div class="screen-item-btn" onclick="setSimScreen('plan')">
+              <span class="screen-idx">06</span>
+              <span class="screen-label">Plan Your Trip</span>
+              <span class="screen-path">app/(tabs)/trips.tsx</span>
+            </div>
+            <div class="screen-item-btn" onclick="setSimScreen('tours')">
+              <span class="screen-idx">07</span>
+              <span class="screen-label">Tours & Activities</span>
+              <span class="screen-path">app/tours/index.tsx</span>
+            </div>
+            <div class="screen-item-btn" onclick="setSimScreen('hotel')">
+              <span class="screen-idx">08</span>
+              <span class="screen-label">Hotel Detail (The Blue Nile)</span>
+              <span class="screen-path">app/hotels/[id].tsx</span>
+            </div>
+            <div class="screen-item-btn" onclick="setSimScreen('confirmed')">
+              <span class="screen-idx">09</span>
+              <span class="screen-label">Booking Confirmed</span>
+              <span class="screen-path">app/bookings/confirmed.tsx</span>
+            </div>
+            <div class="screen-item-btn" onclick="setSimScreen('profile')">
+              <span class="screen-idx">10</span>
+              <span class="screen-label">User Profile (Yared Aregayehu)</span>
+              <span class="screen-path">app/(tabs)/profile.tsx</span>
+            </div>
+            <div class="screen-item-btn" onclick="setSimScreen('filters')">
+              <span class="screen-idx">11</span>
+              <span class="screen-label">Filters Modal</span>
+              <span class="screen-path">app/destinations/filters.tsx</span>
+            </div>
+            <div class="screen-item-btn" onclick="setSimScreen('saved')">
+              <span class="screen-idx">12</span>
+              <span class="screen-label">Favorites Grid</span>
+              <span class="screen-path">app/(tabs)/saved.tsx</span>
+            </div>
+            <div class="screen-item-btn" onclick="setSimScreen('offline')">
+              <span class="screen-idx">13</span>
+              <span class="screen-label">Offline Guides</span>
+              <span class="screen-path">app/offline-guides/index.tsx</span>
+            </div>
+            <div class="screen-item-btn" onclick="setSimScreen('notifications')">
+              <span class="screen-idx">14</span>
+              <span class="screen-label">Notifications Center</span>
+              <span class="screen-path">app/notifications/index.tsx</span>
+            </div>
+            <div class="screen-item-btn" onclick="setSimScreen('settings')">
+              <span class="screen-idx">15</span>
+              <span class="screen-label">Settings</span>
+              <span class="screen-path">app/settings/index.tsx</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- VIEW 3: DESIGN SYSTEM TOKENS -->
+    <div id="view-tokens" class="view-container">
+      <div class="section-intro">
+        <h1>Design Tokens & Component Architecture</h1>
+        <p>Extracted exact color palette, typography scale, radii, and component hierarchy.</p>
+      </div>
+
+      <div class="tokens-grid">
+        <!-- Palette -->
+        <div class="token-card">
+          <h3><i class="fa-solid fa-palette" style="color: var(--accent);"></i> Color Palette</h3>
+          <div class="color-swatch-list">
+            <div class="swatch-item">
+              <div class="swatch-color" style="background: #144234;"></div>
+              <div>
+                <div class="swatch-name">Brand Emerald Primary</div>
+                <div class="swatch-hex">#144234 (Buttons, active tabs, checkmark)</div>
+              </div>
+            </div>
+            <div class="swatch-item">
+              <div class="swatch-color" style="background: #e5a93c;"></div>
+              <div>
+                <div class="swatch-name">Highlands Amber Accent</div>
+                <div class="swatch-hex">#E5A93C (Stars, highlights, badge)</div>
+              </div>
+            </div>
+            <div class="swatch-item">
+              <div class="swatch-color" style="background: #f8faf8;"></div>
+              <div>
+                <div class="swatch-name">Warm Off-White Background</div>
+                <div class="swatch-hex">#F8FAF8 (Clean mobile canvas)</div>
+              </div>
+            </div>
+            <div class="swatch-item">
+              <div class="swatch-color" style="background: #eb4335;"></div>
+              <div>
+                <div class="swatch-name">Favorite Red</div>
+                <div class="swatch-hex">#EB4335 (Heart badges)</div>
+              </div>
+            </div>
+            <div class="swatch-item">
+              <div class="swatch-color" style="background: #162520;"></div>
+              <div>
+                <div class="swatch-name">Deep Forest Charcoal</div>
+                <div class="swatch-hex">#162520 (Headings, primary text)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Typography -->
+        <div class="token-card">
+          <h3><i class="fa-solid fa-font" style="color: var(--accent);"></i> Typography Hierarchy</h3>
+          <div style="display: flex; flex-direction: column; gap: 12px; color: #cbd5e1;">
+            <div>
+              <div style="font-size: 24px; font-weight: 800; color: #fff;">Explore Ethiopia</div>
+              <span style="font-size: 12px; color: #94a3b8;">Hero Title - 28px/32px Bold</span>
+            </div>
+            <div>
+              <div style="font-size: 18px; font-weight: 700; color: #fff;">Popular Destinations</div>
+              <span style="font-size: 12px; color: #94a3b8;">Section Heading - 18px/20px SemiBold</span>
+            </div>
+            <div>
+              <div style="font-size: 14px; font-weight: 600; color: #fff;">Lalibela Rock-Hewn Churches</div>
+              <span style="font-size: 12px; color: #94a3b8;">Card Subtitle - 14px Medium</span>
+            </div>
+            <div>
+              <div style="font-size: 12px; color: #94a3b8;">4.8 (2.5k reviews)</div>
+              <span style="font-size: 12px; color: #64748b;">Caption Meta - 12px Regular</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Structure -->
+        <div class="token-card">
+          <h3><i class="fa-solid fa-folder-tree" style="color: var(--accent);"></i> Architecture in Codebase</h3>
+          <div style="font-size: 13px; font-family: monospace; color: #cbd5e1; line-height: 1.8;">
+            apps/mobile/<br>
+            ├── app/ (Expo Router)<br>
+            │   ├── index.tsx (01 Splash)<br>
+            │   ├── (onboarding)/index.tsx (02)<br>
+            │   ├── (tabs)/<br>
+            │   │   ├── index.tsx (03 Home)<br>
+            │   │   ├── explore.tsx (05 Map)<br>
+            │   │   ├── trips.tsx (06 Plan)<br>
+            │   │   ├── saved.tsx (12 Favorites)<br>
+            │   │   └── profile.tsx (10 Profile)<br>
+            │   ├── destinations/<br>
+            │   │   ├── [id].tsx (04 Detail)<br>
+            │   │   └── filters.tsx (11 Modal)<br>
+            │   ├── tours/index.tsx (07 Tours)<br>
+            │   ├── hotels/[id].tsx (08 Hotel)<br>
+            │   ├── bookings/confirmed.tsx (09)<br>
+            │   ├── offline-guides/index.tsx (13)<br>
+            │   ├── notifications/index.tsx (14)<br>
+            │   └── settings/index.tsx (15)<br>
+            └── src/<br>
+                ├── theme/ (colors, spacing)<br>
+                ├── components/ (cards, buttons)<br>
+                └── constants/mockData.ts
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    const screenMap = {
+      welcome: { img: './screens/01_welcome.png', lightText: true },
+      onboarding: { img: './screens/02_onboarding.png', lightText: false },
+      home: { img: './screens/03_home.png', lightText: false },
+      destination: { img: './screens/04_destination_detail.png', lightText: true },
+      explore: { img: './screens/05_explore_map.png', lightText: false },
+      plan: { img: './screens/06_plan_trip.png', lightText: false },
+      tours: { img: './screens/07_tours.png', lightText: false },
+      hotel: { img: './screens/08_hotel_detail.png', lightText: true },
+      confirmed: { img: './screens/09_booking_confirmed.png', lightText: false },
+      profile: { img: './screens/10_profile.png', lightText: false },
+      filters: { img: './screens/11_filters.png', lightText: false },
+      saved: { img: './screens/12_favorites.png', lightText: false },
+      offline: { img: './screens/13_offline_guides.png', lightText: true },
+      notifications: { img: './screens/14_notifications.png', lightText: false },
+      settings: { img: './screens/15_settings.png', lightText: false }
+    };
+
+    function switchView(viewName) {
+      document.querySelectorAll('.view-container').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-tab-btn').forEach(el => el.classList.remove('active'));
+
+      document.getElementById('view-' + viewName).classList.add('active');
+
+      const btnIdx = viewName === 'grid' ? 0 : viewName === 'simulator' ? 1 : 2;
+      document.querySelectorAll('.nav-tab-btn')[btnIdx].classList.add('active');
+    }
+
+    function setSimScreen(key) {
+      const data = screenMap[key];
+      if (!data) return;
+
+      const img = document.getElementById('sim-screen-img');
+      img.src = data.img;
+
+      const statusBar = document.getElementById('sim-status-bar');
+      if (data.lightText) {
+        statusBar.className = 'status-bar light-text';
+      } else {
+        statusBar.className = 'status-bar dark-text';
+      }
+
+      // Update active in sidebar
+      document.querySelectorAll('.screen-item-btn').forEach((btn, idx) => {
+        btn.classList.remove('active');
+      });
+
+      const keys = Object.keys(screenMap);
+      const activeIdx = keys.indexOf(key);
+      if (activeIdx >= 0) {
+        document.querySelectorAll('.screen-item-btn')[activeIdx].classList.add('active');
+      }
+    }
+
+    function openInSimulator(key) {
+      setSimScreen(key);
+      switchView('simulator');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
+
