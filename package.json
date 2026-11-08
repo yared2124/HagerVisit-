@@ -4,6 +4,7 @@
   "private": true,
   "description": "HagerVisit - Ethiopian Travel & Tourism Ecosystem",
   "scripts": {
+    "install:mobile": "npm --prefix apps/mobile install --legacy-peer-deps",
     "dev": "npm --prefix apps/mobile run dev",
     "dev:mobile": "npm --prefix apps/mobile run dev",
     "dev:mobile:web": "npm --prefix apps/mobile run dev:web",

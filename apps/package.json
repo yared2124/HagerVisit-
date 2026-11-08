@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "install:mobile": "npm --prefix mobile install --legacy-peer-deps",
     "dev:mobile": "npm --prefix mobile run dev",
     "dev": "npm --prefix mobile run dev",
     "mobile": "npm --prefix mobile run dev"
   }
 }
-
