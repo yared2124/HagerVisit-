@@ -10,30 +10,27 @@ import {
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Button } from '../../src/components/ui/Button';
+import { useApp } from '../../src/store/AppContext';
 import { colors, radii, spacing, typography } from '../../src/theme';
-
-interface CategoriesState {
-  Nature: boolean;
-  Culture: boolean;
-  Adventure: boolean;
-  Heritage: boolean;
-}
 
 export default function FiltersModalScreen() {
   const router = useRouter();
+  const { filters, setFilters } = useApp();
 
-  const [categories, setCategories] = useState<CategoriesState>({
-    Nature: true,
-    Culture: false,
-    Adventure: false,
-    Heritage: false,
-  });
+  const [localCategories, setLocalCategories] = useState({ ...filters.categories });
+  const [priceMin, setPriceMin] = useState(filters.priceRange[0]);
+  const [priceMax, setPriceMax] = useState(filters.priceRange[1]);
 
-  const [priceMin, setPriceMin] = useState(0);
-  const [priceMax, setPriceMax] = useState(500);
+  const toggleCategory = (key: keyof typeof localCategories) => {
+    setLocalCategories((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
 
-  const toggleCategory = (key: keyof CategoriesState) => {
-    setCategories((prev) => ({ ...prev, [key]: !prev[key] }));
+  const handleApply = () => {
+    setFilters({
+      categories: localCategories,
+      priceRange: [priceMin, priceMax],
+    });
+    router.back();
   };
 
   return (
@@ -58,8 +55,8 @@ export default function FiltersModalScreen() {
           <View style={styles.section}>
             <Text style={styles.sectionHeading}>Category</Text>
             <View style={styles.optionsList}>
-              {(Object.keys(categories) as (keyof CategoriesState)[]).map((cat) => {
-                const isChecked = categories[cat];
+              {(Object.keys(localCategories) as (keyof typeof localCategories)[]).map((cat) => {
+                const isChecked = localCategories[cat];
                 return (
                   <TouchableOpacity
                     key={cat}
@@ -112,7 +109,7 @@ export default function FiltersModalScreen() {
         <View style={styles.footer}>
           <Button
             title="Apply Filters"
-            onPress={() => router.back()}
+            onPress={handleApply}
             variant="primary"
             size="lg"
           />
@@ -243,4 +240,3 @@ const styles = StyleSheet.create({
     paddingBottom: spacing.xl,
   },
 });
-

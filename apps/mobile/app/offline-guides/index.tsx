@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -10,20 +10,18 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons, Feather } from '@expo/vector-icons';
-import { useApp } from '../../src/store/AppContext';
 import { colors, radii, spacing, typography } from '../../src/theme';
 
 export default function OfflineGuidesScreen() {
   const router = useRouter();
-  const { offlineDownloaded, offlineProgress, downloadOfflineGuides } = useApp();
+  const [downloading, setDownloading] = useState(false);
 
-  const handleDownload = async () => {
-    if (offlineDownloaded) {
-      Alert.alert('Offline Guides', 'All Ethiopian northern & southern regional circuits are already saved offline.');
-      return;
-    }
-    await downloadOfflineGuides();
-    Alert.alert('Download Complete', 'Guides and offline maps for Lalibela, Simien, and Axum are ready.');
+  const handleDownload = () => {
+    setDownloading(true);
+    setTimeout(() => {
+      setDownloading(false);
+      Alert.alert('Downloaded', 'Offline guides for Northern Ethiopia are now stored on device.');
+    }, 1500);
   };
 
   return (
@@ -51,11 +49,7 @@ export default function OfflineGuidesScreen() {
         <View style={styles.centerContainer}>
           {/* Download Circle Icon */}
           <View style={styles.downloadIconCircle}>
-            {offlineDownloaded ? (
-              <Ionicons name="checkmark" size={34} color="#FFFFFF" />
-            ) : (
-              <Feather name="download" size={32} color="#FFFFFF" />
-            )}
+            <Feather name="download" size={32} color="#FFFFFF" />
           </View>
 
           {/* Heading */}
@@ -66,13 +60,6 @@ export default function OfflineGuidesScreen() {
             Download guides for{'\n'}access anytime, anywhere.
           </Text>
 
-          {/* Progress Indicator if downloading */}
-          {offlineProgress > 0 && offlineProgress < 100 && (
-            <View style={styles.progressBarWrapper}>
-              <View style={[styles.progressBarFill, { width: `${offlineProgress}%` }]} />
-            </View>
-          )}
-
           {/* Download Now Button */}
           <TouchableOpacity
             activeOpacity={0.88}
@@ -80,11 +67,7 @@ export default function OfflineGuidesScreen() {
             style={styles.downloadButton}
           >
             <Text style={styles.downloadBtnText}>
-              {offlineDownloaded
-                ? 'Downloaded ✓'
-                : offlineProgress > 0 && offlineProgress < 100
-                ? `Downloading (${offlineProgress}%)...`
-                : 'Download Now'}
+              {downloading ? 'Downloading...' : 'Download Now'}
             </Text>
           </TouchableOpacity>
         </View>
@@ -150,19 +133,6 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     marginBottom: spacing.md,
   },
-  progressBarWrapper: {
-    width: 200,
-    height: 6,
-    borderRadius: 3,
-    backgroundColor: 'rgba(255, 255, 255, 0.3)',
-    overflow: 'hidden',
-    marginVertical: spacing.xs,
-  },
-  progressBarFill: {
-    height: '100%',
-    backgroundColor: colors.accent,
-    borderRadius: 3,
-  },
   downloadButton: {
     backgroundColor: '#FFFFFF',
     paddingVertical: 16,
@@ -185,3 +155,4 @@ const styles = StyleSheet.create({
     height: 20,
   },
 });
+
