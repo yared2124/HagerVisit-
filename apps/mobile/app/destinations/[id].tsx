@@ -8,25 +8,34 @@ import {
   StyleSheet,
   StatusBar,
   SafeAreaView,
-  Dimensions,
 } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { MOCK_DESTINATIONS } from '../../src/constants/mockData';
+import { useApp } from '../../src/store/AppContext';
 import { TagBadge } from '../../src/components/ui/TagBadge';
 import { RatingBadge } from '../../src/components/ui/RatingBadge';
 import { colors, radii, spacing, typography, shadows } from '../../src/theme';
 
-const { width } = Dimensions.get('window');
-
 export default function DestinationDetailScreen() {
   const { id } = useLocalSearchParams();
   const router = useRouter();
-  const [isFavorite, setIsFavorite] = useState(true);
+  const { destinations, isFavorite, toggleFavorite, createBooking } = useApp();
   const [isSaved, setIsSaved] = useState(false);
 
   const destination =
-    MOCK_DESTINATIONS.find((d) => d.id === id) || MOCK_DESTINATIONS[0];
+    destinations.find((d) => d.id === id) || destinations[0];
+
+  const handleAddToTrip = () => {
+    createBooking(
+      `${destination.title} ${destination.subtitle}`,
+      'Nov 12 - Nov 16, 2026',
+      '1 Traveler',
+      '$340'
+    );
+    router.push('/bookings/confirmed' as any);
+  };
+
+  const favoriteActive = isFavorite(destination.id);
 
   return (
     <View style={styles.container}>
@@ -48,11 +57,11 @@ export default function DestinationDetailScreen() {
 
           <TouchableOpacity
             activeOpacity={0.8}
-            onPress={() => setIsFavorite(!isFavorite)}
+            onPress={() => toggleFavorite(destination.id)}
             style={styles.circleButton}
           >
             <Ionicons
-              name={isFavorite ? 'heart' : 'heart-outline'}
+              name={favoriteActive ? 'heart' : 'heart-outline'}
               size={20}
               color={colors.favorite}
             />
@@ -93,7 +102,7 @@ export default function DestinationDetailScreen() {
           <View style={styles.actionRow}>
             <TouchableOpacity
               activeOpacity={0.85}
-              onPress={() => router.push('/bookings/confirmed' as any)}
+              onPress={handleAddToTrip}
               style={styles.addToTripBtn}
             >
               <Text style={styles.addToTripText}>Add to Trip</Text>
@@ -259,4 +268,3 @@ const styles = StyleSheet.create({
     ...shadows.subtle,
   },
 });
-

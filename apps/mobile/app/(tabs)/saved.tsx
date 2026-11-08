@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -11,16 +11,16 @@ import {
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { FavoriteCard } from '../../src/components/cards/FavoriteCard';
-import { MOCK_DESTINATIONS } from '../../src/constants/mockData';
+import { useApp } from '../../src/store/AppContext';
 import { colors, spacing, typography } from '../../src/theme';
 
 export default function FavoritesScreen() {
   const router = useRouter();
-  const [favorites, setFavorites] = useState(MOCK_DESTINATIONS.slice(0, 4));
+  const { destinations, favorites, toggleFavorite } = useApp();
 
-  const removeFavorite = (id: string) => {
-    setFavorites((prev) => prev.filter((item) => item.id !== id));
-  };
+  const favoriteDestinations = destinations.filter((item) =>
+    favorites.includes(item.id)
+  );
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -40,20 +40,30 @@ export default function FavoritesScreen() {
         </View>
 
         {/* 2-Column Grid of Favorite Cards */}
-        <FlatList
-          data={favorites}
-          keyExtractor={(item) => item.id}
-          numColumns={2}
-          contentContainerStyle={styles.listContent}
-          columnWrapperStyle={styles.columnWrapper}
-          renderItem={({ item }) => (
-            <FavoriteCard
-              destination={item}
-              onPress={() => router.push(`/destinations/${item.id}` as any)}
-              onRemoveFavorite={() => removeFavorite(item.id)}
-            />
-          )}
-        />
+        {favoriteDestinations.length > 0 ? (
+          <FlatList
+            data={favoriteDestinations}
+            keyExtractor={(item) => item.id}
+            numColumns={2}
+            contentContainerStyle={styles.listContent}
+            columnWrapperStyle={styles.columnWrapper}
+            renderItem={({ item }) => (
+              <FavoriteCard
+                destination={item}
+                onPress={() => router.push(`/destinations/${item.id}` as any)}
+                onRemoveFavorite={() => toggleFavorite(item.id)}
+              />
+            )}
+          />
+        ) : (
+          <View style={styles.emptyContainer}>
+            <Ionicons name="heart-dislike-outline" size={48} color={colors.textMuted} />
+            <Text style={styles.emptyTitle}>No Favorites Yet</Text>
+            <Text style={styles.emptySubtitle}>
+              Explore Ethiopia and save places you want to visit!
+            </Text>
+          </View>
+        )}
       </View>
     </SafeAreaView>
   );
@@ -94,5 +104,21 @@ const styles = StyleSheet.create({
   columnWrapper: {
     justifyContent: 'space-between',
   },
+  emptyContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: spacing.sm,
+    paddingHorizontal: spacing.xxl,
+  },
+  emptyTitle: {
+    fontSize: typography.lg,
+    fontWeight: typography.bold,
+    color: colors.textPrimary,
+  },
+  emptySubtitle: {
+    fontSize: typography.sm,
+    color: colors.textSecondary,
+    textAlign: 'center',
+  },
 });
-

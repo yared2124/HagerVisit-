@@ -11,10 +11,12 @@ import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import Svg, { Path, Circle } from 'react-native-svg';
 import { Button } from '../../src/components/ui/Button';
+import { useApp } from '../../src/store/AppContext';
 import { colors, radii, spacing, typography, shadows } from '../../src/theme';
 
 export default function BookingConfirmedScreen() {
   const router = useRouter();
+  const { currentBooking } = useApp();
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -54,7 +56,7 @@ export default function BookingConfirmedScreen() {
           {/* Booking ID Badge Card */}
           <View style={[styles.bookingCard, shadows.subtle]}>
             <Text style={styles.bookingLabel}>Booking ID</Text>
-            <Text style={styles.bookingId}>#HV20261107</Text>
+            <Text style={styles.bookingId}>{currentBooking.bookingId}</Text>
           </View>
 
           {/* Actions */}
@@ -85,12 +87,10 @@ export default function BookingConfirmedScreen() {
               fill="#EBF3EE"
             />
             {/* Castles and Towers Silhouette */}
-            {/* Gondar Fasil Castle silhouette */}
             <Path
               d="M70 90 L70 48 L82 48 L82 52 L94 52 L94 48 L106 48 L106 90 Z"
               fill="#CADCD1"
             />
-            {/* Castle Turret Dome */}
             <Path
               d="M74 48 Q88 32 102 48 Z"
               fill="#B4CEBF"
@@ -100,7 +100,6 @@ export default function BookingConfirmedScreen() {
               d="M172 90 L176 18 Q180 10 184 18 L188 90 Z"
               fill="#98BFA7"
             />
-            {/* Stelae notches */}
             <Path d="M177 30 H183 M177 45 H183 M177 60 H183" stroke="#FFFFFF" strokeWidth="1" />
             {/* Lalibela Cross / Roof Silhouette */}
             <Path
@@ -215,4 +214,3 @@ const styles = StyleSheet.create({
     height: 90,
   },
 });
-

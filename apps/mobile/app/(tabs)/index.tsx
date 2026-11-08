@@ -14,15 +14,16 @@ import { HagerLogo } from '../../src/components/ui/HagerLogo';
 import { SearchBar } from '../../src/components/ui/SearchBar';
 import { FeaturedHeroCard } from '../../src/components/cards/FeaturedHeroCard';
 import { DestinationCarouselCard } from '../../src/components/cards/DestinationCarouselCard';
-import { MOCK_DESTINATIONS } from '../../src/constants/mockData';
+import { useApp } from '../../src/store/AppContext';
 import { colors, spacing, typography } from '../../src/theme';
 
 export default function HomeScreen() {
   const router = useRouter();
+  const { destinations, unreadCount } = useApp();
   const [searchQuery, setSearchQuery] = useState('');
 
-  const featuredDestination = MOCK_DESTINATIONS[0]; // Lalibela
-  const popularDestinations = MOCK_DESTINATIONS.slice(1); // Axum, Simien, Danakil
+  const featuredDestination = destinations.find((d) => d.featured) || destinations[0];
+  const popularDestinations = destinations.filter((d) => !d.featured);
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -37,7 +38,7 @@ export default function HomeScreen() {
             style={styles.bellButton}
           >
             <Ionicons name="notifications-outline" size={22} color={colors.textPrimary} />
-            <View style={styles.notificationDot} />
+            {unreadCount > 0 && <View style={styles.notificationDot} />}
           </TouchableOpacity>
         </View>
 
@@ -152,4 +153,3 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.xs,
   },
 });
-

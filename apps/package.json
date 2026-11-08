@@ -1,0 +1,10 @@
+{
+  "name": "@hagervisit/apps-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev:mobile": "npm --prefix mobile run dev",
+    "dev": "npm --prefix mobile run dev",
+    "mobile": "npm --prefix mobile run dev"
+  }
+}

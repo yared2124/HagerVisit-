@@ -4,10 +4,15 @@
   "private": true,
   "description": "HagerVisit - Ethiopian Travel & Tourism Ecosystem",
   "scripts": {
-    "mobile": "npm --prefix apps/mobile start",
-    "mobile:ios": "npm --prefix apps/mobile run ios",
-    "mobile:android": "npm --prefix apps/mobile run android",
-    "mobile:web": "npm --prefix apps/mobile run web"
+    "dev": "npm --prefix apps/mobile run dev",
+    "dev:mobile": "npm --prefix apps/mobile run dev",
+    "dev:mobile:web": "npm --prefix apps/mobile run dev:web",
+    "dev:mobile:ios": "npm --prefix apps/mobile run dev:ios",
+    "dev:mobile:android": "npm --prefix apps/mobile run dev:android",
+    "mobile": "npm --prefix apps/mobile run dev",
+    "mobile:ios": "npm --prefix apps/mobile run dev:ios",
+    "mobile:android": "npm --prefix apps/mobile run dev:android",
+    "mobile:web": "npm --prefix apps/mobile run dev:web"
   },
   "workspaces": [
     "apps/*",
