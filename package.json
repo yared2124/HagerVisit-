@@ -16,7 +16,11 @@
     "mobile:web": "npm --prefix apps/mobile run dev:web"
   },
   "workspaces": [
-    "apps/*",
-    "packages/*"
+    "apps/mobile",
+    "apps/admin",
+    "apps/api",
+    "packages/config",
+    "packages/contracts",
+    "packages/eslint-config"
   ]
 }
